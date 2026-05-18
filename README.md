@@ -89,7 +89,160 @@ AI Agent 运行过程可视化。
 # 技术栈
 
 ## 前端
+# Frontend 实现说明
 
+由于 frontend 目录包含：
+
+- node_modules
+- Next.js 编译缓存
+- Turbopack 文件
+
+文件体积较大，因此未完整上传至 GitHub。
+
+项目核心前端逻辑主要基于：
+
+- Next.js
+- React
+- TypeScript
+
+实现。
+
+---
+
+## 前端主要功能
+
+前端主要实现：
+
+### 1. AI 问答界面
+
+用户可以：
+
+- 输入安全理论问题
+- 点击示例问题
+- 获取 AI 回答
+
+核心逻辑：
+
+```tsx
+fetch("http://127.0.0.1:8000/chat")
+```
+
+通过 POST 请求与 FastAPI 后端通信。
+
+---
+
+### 2. Runtime Logs
+
+前端通过：
+
+```tsx
+new WebSocket("ws://127.0.0.1:8000/ws")
+```
+
+连接后端 WebSocket。
+
+后端 Runtime 事件会实时推送到前端。
+
+例如：
+
+```json
+{
+  "type": "task_running",
+  "task": "llm_reasoning"
+}
+```
+
+以及：
+
+```json
+{
+  "type": "task_completed",
+  "task": "llm_reasoning"
+}
+```
+
+前端会动态更新 Runtime Logs。
+
+---
+
+### 3. 示例问题按钮
+
+页面内置：
+
+- IND-CPA
+- Capability Security
+- 随机预言机
+- 最小权限原则
+
+等示例问题。
+
+点击按钮后：
+
+自动填充输入框。
+
+---
+
+## 前端运行方式
+
+进入 frontend：
+
+```bash
+cd frontend
+```
+
+安装依赖：
+
+```bash
+npm install
+```
+
+启动项目：
+
+```bash
+npm run dev
+```
+
+默认运行：
+
+```text
+http://localhost:3000
+```
+
+---
+
+## GitHub 上传说明
+
+上传 GitHub 时：
+
+无需上传：
+
+```text
+frontend/node_modules
+frontend/.next
+```
+
+只需保留：
+
+```text
+frontend/app
+frontend/package.json
+frontend/tsconfig.json
+```
+
+即可重新安装并运行。
+
+---
+
+## 前端特点
+
+该前端实现了：
+
+- 本地 AI Dashboard
+- Agent Runtime 可视化
+- WebSocket 实时通信
+- 安全理论问答 UI
+
+用于展示本地 AI Agent 的运行过程。
 - Next.js
 - React
 - TypeScript
